@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../api/Interceptor";
+import { LOCAL_STORAGE_KEY } from "../../../Config";
 import { SignupValidator } from "../../../helper/helper";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../../routing/Routeconstant";
@@ -23,6 +24,10 @@ const SignUp = () => {
     axios
       .post("/api/v1/register", body)
       .then((res) => {
+        localStorage.setItem(
+          LOCAL_STORAGE_KEY,
+          JSON.stringify({ isLoggesIn: true })
+        );
         context.setIslogin(true);
         navigate(Routeconstant.HOME);
       })

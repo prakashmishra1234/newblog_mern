@@ -45,16 +45,36 @@ const about = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Typography sx={{ fontWeight: "700", fontSize: "2rem" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "700",
+                      fontSize: { xs: "1rem", md: "2rem" },
+                    }}
+                  >
                     PRAKASH MISHRA
                   </Typography>
-                  <Typography sx={{ fontWeight: "600", fontSize: "1.5rem" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: { xs: "0.75rem", md: "1.5rem" },
+                    }}
+                  >
                     Software Engineer
                   </Typography>
-                  <Typography sx={{ fontWeight: "", fontSize: "1.5rem" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "",
+                      fontSize: { xs: "0.75rem", md: "1.5rem" },
+                    }}
+                  >
                     at
                   </Typography>
-                  <Typography sx={{ fontWeight: "600", fontSize: "1.5rem" }}>
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontSize: { xs: "0.75rem", md: "1.5rem" },
+                    }}
+                  >
                     SFLHUB TECHNOLOGY
                   </Typography>
                 </Grid>

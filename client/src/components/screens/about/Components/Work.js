@@ -27,11 +27,7 @@ const Work = () => {
               }}
             >
               <Typography sx={{ paddingRight: "0.5rem" }}>
-                Software Engineer
-              </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>at</Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
-                SFLHUB TECHNOLOGY
+                Software Engineer at SFLHUB TECHNOLOGY
               </Typography>
             </Grid>
             <Grid
@@ -43,10 +39,8 @@ const Work = () => {
               }}
             >
               <Typography sx={{ paddingRight: "0.5rem" }}>
-                (July 2022
+                (July 2022 to Current)
               </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>to</Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>Current)</Typography>
             </Grid>
             <Grid
               item
@@ -92,11 +86,7 @@ const Work = () => {
               }}
             >
               <Typography sx={{ paddingRight: "0.5rem" }}>
-                Software Engineer Intern
-              </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>at</Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
-                SFLHUB TECHNOLOGY
+                Software Engineer Intern at SFLHUB TECHNOLOGY
               </Typography>
             </Grid>
             <Grid
@@ -107,10 +97,8 @@ const Work = () => {
                 paddingTop: "0",
               }}
             >
-              <Typography sx={{ paddingRight: "0.5rem" }}>(Jan 2022</Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>to</Typography>
               <Typography sx={{ paddingRight: "0.5rem" }}>
-                June 2022)
+                (Jan 2022 to June 2022)
               </Typography>
             </Grid>
             <Grid

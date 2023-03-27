@@ -51,7 +51,13 @@ const Profile = () => {
       >
         <Grid item xs={12}>
           <Paper elevation={3}>
-            <Box style={{ display: "flex" }}>
+            <Box
+              style={{ display: "flex" }}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
               <Grid container>
                 <Grid
                   item
@@ -83,6 +89,7 @@ const Profile = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: { xs: "center", md: "left" },
                     padding: "1rem",
                   }}
                 >
@@ -96,6 +103,7 @@ const Profile = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: { xs: "center", md: "left" },
                     padding: "1rem",
                   }}
                 >
@@ -109,6 +117,7 @@ const Profile = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: { xs: "center", md: "left" },
                     padding: "1rem",
                   }}
                 >

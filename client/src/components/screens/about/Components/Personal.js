@@ -28,17 +28,25 @@ const Personal = () => {
                 flexDirection: "column",
               }}
             >
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>Email : </b>pm9507041@gmail.com
               </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>DOB : </b>19/08/2001
               </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>Address : </b>Gaur City 1, Greater Noida West, Gautam Budha
                 Nagar, Uttar Pradesh, 201301
               </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>Linkedin : </b>
                 <a
                   target="_blank"
@@ -57,13 +65,19 @@ const Personal = () => {
                 flexDirection: "column",
               }}
             >
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>Mobile : </b>9507041006
               </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>Nationality : </b>Indian
               </Typography>
-              <Typography sx={{ paddingRight: "0.5rem" }}>
+              <Typography
+                sx={{ paddingRight: "0.5rem", wordWrap: "break-word" }}
+              >
                 <b>Github : </b>
                 <a target="_blank" href="https://github.com/prakashmishra1234">
                   https://github.com/prakashmishra1234
