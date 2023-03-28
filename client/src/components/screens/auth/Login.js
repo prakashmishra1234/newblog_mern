@@ -31,6 +31,14 @@ const Login = () => {
         );
         context.setIslogin(true);
         navigate(Routeconstant.HOME);
+        axios
+          .get("/api/v1/me")
+          .then((res) => {
+            context.setUserData(res.data?.user ?? {});
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         toast.error(err.response.data.message ?? "Something went wrong");

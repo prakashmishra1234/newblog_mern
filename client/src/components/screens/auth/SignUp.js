@@ -100,7 +100,6 @@ const SignUp = () => {
                       }}
                     />
                   </div>
-
                   <div>
                     {props.errors.avatar && (
                       <span className="span-error">{props.errors.avatar}</span>
