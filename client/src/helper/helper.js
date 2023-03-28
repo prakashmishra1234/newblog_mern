@@ -18,7 +18,7 @@ export const SignupValidator = {
       )
       .required("email is required"),
     password: yup.string().required("password is required"),
-    avatar: yup.mixed(),
+    avatar: yup.mixed().required("Profile picture is required"),
   }),
 };
 
