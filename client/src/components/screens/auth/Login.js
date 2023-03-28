@@ -54,7 +54,7 @@ const Login = () => {
             }}
           >
             {(props) => (
-              <form onSubmit={props.handleSubmit} className="w-50">
+              <form onSubmit={props.handleSubmit} className="formSignup">
                 <Typography
                   sx={{
                     display: "flex",
