@@ -82,6 +82,23 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   }
 });
 
+//Delete user request
+exports.deleteRequest = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  const message = `You have received a request to delete user ${user.name} with userid ${req.user._id} and email ${req.user.email}.`;
+
+  await sendEmail({
+    email: "1933029@sliet.ac.in",
+    subject: `Delete user request`,
+    message,
+  });
+  res.status(200).json({
+    success: true,
+    message: `Delete request sent to admin successfully`,
+  });
+});
+
 // Reset Password
 exports.resetPassword = catchAsyncError(async (req, res, next) => {
   // creating token hash
