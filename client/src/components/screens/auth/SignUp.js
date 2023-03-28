@@ -2,20 +2,22 @@ import { Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { Formik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import instance from "../../../api/Interceptor";
 import { LOCAL_STORAGE_KEY } from "../../../Config";
 import { SignupValidator } from "../../../helper/helper";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../../routing/Routeconstant";
+import AuthBackdrop from "./AuthBackdrop";
 
 const SignUp = () => {
   const context = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const onClickSignUp = (value) => {
-    console.log(value);
+    setLoading(true);
     const body = {
       name: value.name,
       email: value.email,
@@ -33,88 +35,97 @@ const SignUp = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
   return (
-    <div className="container-form d-flex justify-content-center h-100 align-items-center">
-      <Formik
-        initialValues={SignupValidator.initials}
-        validationSchema={SignupValidator.validation}
-        onSubmit={(values, actions) => {
-          onClickSignUp(values, actions);
-        }}
-      >
-        {(props) => (
-          <form onSubmit={props.handleSubmit} className="w-50">
-            <Typography
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                fontSize: "2rem",
-                fontWeight: "700",
-              }}
-            >
-              Welcome
-            </Typography>
-            <div className="d-flex " id="name">
-              <TextField
-                fullWidth
-                label="Full Name"
-                value={props.values.name}
-                variant="standard"
-                onChange={(event) => {
-                  props.setFieldValue("name", event.target.value);
-                }}
-              />
-              {/* {props.errors.name && (
-                <span className="span-error">{props.errors.email}</span>
-              )} */}
-            </div>
-            <div className="d-flex " id="email">
-              <TextField
-                fullWidth
-                label="email"
-                type="email"
-                value={props.values.email}
-                variant="standard"
-                onChange={(event) => {
-                  props.setFieldValue("email", event.target.value);
-                }}
-              />
-              {/* {props.errors.email && (
-                <span className="span-error">{props.errors.email}</span>
-              )} */}
-            </div>
-            <div className="d-flex" id="password">
-              <TextField
-                fullWidth
-                label="Password"
-                type="password"
-                value={props.values.password}
-                variant="standard"
-                onChange={(event) => {
-                  props.setFieldValue("password", event.target.value);
-                }}
-              />
-              {/* {props.errors.password && (
-                <span className="span-error">{props.errors.password}</span>
-              )} */}
-            </div>
-            <div className="submit mt-3 d-flex justify-content-between">
-              <button type="submit" className="btn btn-primary">
-                SignUp
-              </button>
-              {/* <a
+    <>
+      {loading ? (
+        <AuthBackdrop loading={loading} setLoading={setLoading} />
+      ) : (
+        <div className="container-form d-flex justify-content-center h-100 align-items-center">
+          <Formik
+            initialValues={SignupValidator.initials}
+            validationSchema={SignupValidator.validation}
+            onSubmit={(values, actions) => {
+              onClickSignUp(values, actions);
+            }}
+          >
+            {(props) => (
+              <form onSubmit={props.handleSubmit} className="w-50">
+                <Typography
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    fontSize: { xs: "1rem", md: "2rem" },
+                    fontWeight: "700",
+                  }}
+                >
+                  Welcome
+                </Typography>
+                <div className="d-flex flex-column " id="name">
+                  <TextField
+                    fullWidth
+                    label="Full Name"
+                    value={props.values.name}
+                    variant="standard"
+                    onChange={(event) => {
+                      props.setFieldValue("name", event.target.value);
+                    }}
+                  />
+                  {props.errors.name && (
+                    <span className="span-error">{props.errors.email}</span>
+                  )}
+                </div>
+                <div className="d-flex flex-column" id="email">
+                  <TextField
+                    fullWidth
+                    label="email"
+                    type="email"
+                    value={props.values.email}
+                    variant="standard"
+                    onChange={(event) => {
+                      props.setFieldValue("email", event.target.value);
+                    }}
+                  />
+                  {props.errors.email && (
+                    <span className="span-error">{props.errors.email}</span>
+                  )}
+                </div>
+                <div className="d-flex flex-column" id="password">
+                  <TextField
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    value={props.values.password}
+                    variant="standard"
+                    onChange={(event) => {
+                      props.setFieldValue("password", event.target.value);
+                    }}
+                  />
+                  {props.errors.password && (
+                    <span className="span-error">{props.errors.password}</span>
+                  )}
+                </div>
+                <div className="submit mt-3 d-flex justify-content-between">
+                  <button type="submit" className="btn btn-primary">
+                    SignUp
+                  </button>
+                  {/* <a
                 className="pointer"
                 // onClick={() => navigate(routeConstant.FORGETPASSWORD)}
               >
                 &gt; Forgot password?
               </a> */}
-            </div>
-          </form>
-        )}
-      </Formik>
-    </div>
+                </div>
+              </form>
+            )}
+          </Formik>
+        </div>
+      )}
+    </>
   );
 };
 
