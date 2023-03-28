@@ -10,6 +10,7 @@ import { SignupValidator } from "../../../helper/helper";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../../routing/Routeconstant";
 import AuthBackdrop from "./AuthBackdrop";
+import FileUpload from "react-mui-fileuploader";
 
 const SignUp = () => {
   const context = useContext(AuthContext);
@@ -17,11 +18,13 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
 
   const onClickSignUp = (value) => {
+    console.log(value);
     setLoading(true);
     const body = {
       name: value.name,
       email: value.email,
       password: value.password,
+      avatar: value.avatar,
     };
     axios
       .post("/api/v1/register", body)
@@ -107,6 +110,35 @@ const SignUp = () => {
                   />
                   {props.errors.password && (
                     <span className="span-error">{props.errors.password}</span>
+                  )}
+                </div>
+                <div className="d-flex flex-column" id="avatar">
+                  <img src={props.values.avatar} alt="Avatar Preview" />
+                  <input
+                    className="form-control"
+                    type="file"
+                    id="formFile"
+                    accept="image/*"
+                    onChange={(e) => {
+                      // const newImage = e.target.files[0];
+                      // if (newImage) {
+                      //   props.setFieldValue(
+                      //     "avatar",
+                      //     URL.createObjectURL(newImage)
+                      //   );
+                      // }
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        if (reader.readyState === 2) {
+                          props.setFieldValue("avatar", reader.result);
+                        }
+                      };
+                      reader.readAsDataURL(e.target.files[0]);
+                    }}
+                  />
+
+                  {props.errors.avatar && (
+                    <span className="span-error">{props.errors.avatar}</span>
                   )}
                 </div>
                 <div className="submit mt-3 d-flex justify-content-between">
