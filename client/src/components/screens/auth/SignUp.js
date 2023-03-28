@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { Avatar, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { Formik } from "formik";
@@ -10,7 +10,6 @@ import { SignupValidator } from "../../../helper/helper";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../../routing/Routeconstant";
 import AuthBackdrop from "./AuthBackdrop";
-import FileUpload from "react-mui-fileuploader";
 
 const SignUp = () => {
   const context = useContext(AuthContext);
@@ -18,7 +17,6 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
 
   const onClickSignUp = (value) => {
-    console.log(value);
     setLoading(true);
     const body = {
       name: value.name,
@@ -57,7 +55,7 @@ const SignUp = () => {
             }}
           >
             {(props) => (
-              <form onSubmit={props.handleSubmit} className="w-50">
+              <form onSubmit={props.handleSubmit} className="formSignup">
                 <Typography
                   sx={{
                     display: "flex",
@@ -68,6 +66,36 @@ const SignUp = () => {
                 >
                   Welcome
                 </Typography>
+                <div className="d-flex mt-3 " id="avatar">
+                  <Avatar
+                    style={{
+                      height: "2.5rem",
+                      width: "2.5rem",
+                      marginRight: "1rem",
+                    }}
+                    alt="user"
+                    src={props.values.avatar}
+                  />
+                  <input
+                    className="form-control"
+                    type="file"
+                    id="formFile"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        if (reader.readyState === 2) {
+                          props.setFieldValue("avatar", reader.result);
+                        }
+                      };
+                      reader.readAsDataURL(e.target.files[0]);
+                    }}
+                  />
+
+                  {props.errors.avatar && (
+                    <span className="span-error">{props.errors.avatar}</span>
+                  )}
+                </div>
                 <div className="d-flex flex-column " id="name">
                   <TextField
                     fullWidth
@@ -112,35 +140,7 @@ const SignUp = () => {
                     <span className="span-error">{props.errors.password}</span>
                   )}
                 </div>
-                <div className="d-flex flex-column" id="avatar">
-                  <img src={props.values.avatar} alt="Avatar Preview" />
-                  <input
-                    className="form-control"
-                    type="file"
-                    id="formFile"
-                    accept="image/*"
-                    onChange={(e) => {
-                      // const newImage = e.target.files[0];
-                      // if (newImage) {
-                      //   props.setFieldValue(
-                      //     "avatar",
-                      //     URL.createObjectURL(newImage)
-                      //   );
-                      // }
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          props.setFieldValue("avatar", reader.result);
-                        }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }}
-                  />
 
-                  {props.errors.avatar && (
-                    <span className="span-error">{props.errors.avatar}</span>
-                  )}
-                </div>
                 <div className="submit mt-3 d-flex justify-content-between">
                   <button type="submit" className="btn btn-primary">
                     SignUp

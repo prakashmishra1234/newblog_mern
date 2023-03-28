@@ -40,21 +40,6 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  useEffect(() => {
-    if (context.isLogin) getUserData();
-  }, [context.isLogin]);
-
-  const getUserData = () => {
-    axios
-      .get("/api/v1/me")
-      .then((res) => {
-        context.setUserData(res.data?.user ?? {});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const onClickLogout = () => {
     axios
       .get("/api/v1/logout")
@@ -135,6 +120,13 @@ const Header = () => {
                   <Typography textAlign="center">Create</Typography>
                 </MenuItem>
               </Link>
+              {context.userData.role === "admin" ? (
+                <Link to={Routeconstant.USER}>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Users</Typography>
+                  </MenuItem>
+                </Link>
+              ) : null}
 
               {context.isLogin ? null : (
                 <Box
@@ -222,6 +214,20 @@ const Header = () => {
             >
               Create
             </Link>
+            {context.userData.role === "admin" ? (
+              <Link
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                  display: "block",
+                  margin: "0 1rem",
+                }}
+                to={Routeconstant.USER}
+                onClick={handleCloseNavMenu}
+              >
+                Users
+              </Link>
+            ) : null}
           </Box>
 
           {context.isLogin ? (
@@ -230,11 +236,15 @@ const Header = () => {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="Remy Sharp"
-                    src={`https://ui-avatars.com/api/?name=${
-                      context.userData.name
-                        ? context?.userData?.name.split("")[0] ?? ""
-                        : ""
-                    }`}
+                    src={
+                      context.userData.avatar && context.userData.avatar.url
+                        ? context.userData.avatar.url
+                        : `https://ui-avatars.com/api/?name=${
+                            context.userData.name
+                              ? context?.userData?.name.split("")[0] ?? ""
+                              : ""
+                          }`
+                    }
                   />
                 </IconButton>
               </Tooltip>

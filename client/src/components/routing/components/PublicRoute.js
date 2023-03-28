@@ -9,7 +9,7 @@ function PublicRoute(props) {
   if (!Auth.isLogin) {
     return props.children;
   }
-  return <Navigate to={Routeconstant.HOME} replace={true} />;
+  return <Navigate to={Routeconstant.HOME} />;
 }
 
 export default PublicRoute;

@@ -30,7 +30,6 @@ const about = () => {
                     <Avatar
                       style={{ height: "15rem", width: "15rem" }}
                       alt="user"
-                      //   src={`https://ui-avatars.com/api/?name=P`}
                       src={`${baseName}myimage.jpeg`}
                     />
                   </IconButton>

@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { baseName } from "../Config";
 
 export const SignupValidator = {
   initials: {
@@ -17,7 +18,7 @@ export const SignupValidator = {
       )
       .required("email is required"),
     password: yup.string().required("password is required"),
-    avatar: yup.mixed().required("File is required"),
+    avatar: yup.mixed(),
   }),
 };
 

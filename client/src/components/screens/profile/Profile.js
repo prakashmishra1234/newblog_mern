@@ -106,11 +106,15 @@ const Profile = () => {
                       <Avatar
                         style={{ height: "10rem", width: "10rem" }}
                         alt="user"
-                        src={`https://ui-avatars.com/api/?name=${
-                          context.userData.name
-                            ? context?.userData?.name.split("")[0] ?? ""
-                            : ""
-                        }`}
+                        src={
+                          context.userData.avatar && context.userData.avatar.url
+                            ? context.userData.avatar.url
+                            : `https://ui-avatars.com/api/?name=${
+                                context.userData.name
+                                  ? context?.userData?.name.split("")[0] ?? ""
+                                  : ""
+                              }`
+                        }
                       />
                     </IconButton>
                   </Grid>

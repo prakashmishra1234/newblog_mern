@@ -8,10 +8,13 @@ import SignUp from "../screens/auth/SignUp";
 import CreatePost from "../screens/create/CreatePost";
 import About from "../screens/about/about";
 import Home from "../screens/home/Home";
+import Users from "../screens/users/Users.js";
 import Profile from "../screens/profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute.js";
 import { Routeconstant } from "./Routeconstant";
+import CheckAdmin from "./components/CheckAdmin";
+import axios from "axios";
 
 const Navigation = () => {
   const context = useContext(AuthContext);
@@ -20,7 +23,18 @@ const Navigation = () => {
     if (Auth && Auth.isLoggesIn) {
       context.setIslogin(true);
     }
+    getUserData();
   }, []);
+  const getUserData = () => {
+    axios
+      .get("/api/v1/me")
+      .then((res) => {
+        context.setUserData(res.data?.user ?? {});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Routes>
@@ -64,6 +78,14 @@ const Navigation = () => {
             <ProtectedRoute>
               <About />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path={Routeconstant.USER}
+          element={
+            <CheckAdmin>
+              <Users />
+            </CheckAdmin>
           }
         />
       </Route>

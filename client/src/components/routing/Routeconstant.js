@@ -5,5 +5,6 @@ const Routeconstant = {
   CREATE: "/post/new",
   PROFILE: "/profile",
   ABOUT: "/about",
+  USER: "/users",
 };
 export { Routeconstant };

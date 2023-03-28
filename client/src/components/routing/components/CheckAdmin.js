@@ -3,13 +3,13 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../Routeconstant";
 
-const ProtectedRoute = (props) => {
+const CheckAdmin = (props) => {
   const Auth = useContext(AuthContext);
-
-  if (!Auth.isLogin) {
-    return <Navigate to={Routeconstant.LOGIN} />;
+  console.log(Auth.userData);
+  if (Auth.isLogin && Auth.userData.role === "admin") {
+    return props.children;
   }
-  return props.children;
+  return <Navigate to={Routeconstant.HOME} />;
 };
 
-export default ProtectedRoute;
+export default CheckAdmin;
