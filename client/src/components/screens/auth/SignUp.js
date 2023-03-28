@@ -73,35 +73,39 @@ const SignUp = () => {
                 >
                   Welcome
                 </Typography>
-                <div className="d-flex mt-3 widthAuth" id="avatar">
-                  <Avatar
-                    style={{
-                      height: "2.5rem",
-                      width: "2.5rem",
-                      marginRight: "1rem",
-                    }}
-                    alt="user"
-                    src={props.values.avatar}
-                  />
-                  <input
-                    className="form-control"
-                    type="file"
-                    id="formFile"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        if (reader.readyState === 2) {
-                          props.setFieldValue("avatar", reader.result);
-                        }
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }}
-                  />
+                <div className="d-flex flex-column mt-3 widthAuth" id="avatar">
+                  <div className="d-flex">
+                    <Avatar
+                      style={{
+                        height: "2.5rem",
+                        width: "2.5rem",
+                        marginRight: "1rem",
+                      }}
+                      alt="user"
+                      src={props.values.avatar}
+                    />
+                    <input
+                      className="form-control"
+                      type="file"
+                      id="formFile"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          if (reader.readyState === 2) {
+                            props.setFieldValue("avatar", reader.result);
+                          }
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                      }}
+                    />
+                  </div>
 
-                  {props.errors.avatar && (
-                    <span className="span-error">{props.errors.avatar}</span>
-                  )}
+                  <div>
+                    {props.errors.avatar && (
+                      <span className="span-error">{props.errors.avatar}</span>
+                    )}
+                  </div>
                 </div>
                 <div className="d-flex flex-column widthAuth" id="name">
                   <TextField
