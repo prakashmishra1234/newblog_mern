@@ -1,4 +1,4 @@
-import { Avatar, Grid, TextField, Typography } from "@mui/material";
+import { Avatar, Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { Formik } from "formik";
@@ -46,16 +46,23 @@ const SignUp = () => {
       {loading ? (
         <AuthBackdrop loading={loading} setLoading={setLoading} />
       ) : (
-        <div className="container-form d-flex justify-content-center h-100 align-items-center">
-          <Formik
-            initialValues={SignupValidator.initials}
-            validationSchema={SignupValidator.validation}
-            onSubmit={(values, actions) => {
-              onClickSignUp(values, actions);
-            }}
-          >
-            {(props) => (
-              <form onSubmit={props.handleSubmit} className="formSignup">
+        <Formik
+          initialValues={SignupValidator.initials}
+          validationSchema={SignupValidator.validation}
+          onSubmit={(values, actions) => {
+            onClickSignUp(values, actions);
+          }}
+        >
+          {(props) => (
+            <form onSubmit={props.handleSubmit} className="formSignup">
+              <Paper
+                elevation={3}
+                sx={{
+                  padding: "1rem",
+                  height: "100%",
+                  width: { xs: "100%", md: "50%" },
+                }}
+              >
                 <Typography
                   sx={{
                     display: "flex",
@@ -66,7 +73,7 @@ const SignUp = () => {
                 >
                   Welcome
                 </Typography>
-                <div className="d-flex mt-3 " id="avatar">
+                <div className="d-flex mt-3 widthAuth" id="avatar">
                   <Avatar
                     style={{
                       height: "2.5rem",
@@ -96,7 +103,7 @@ const SignUp = () => {
                     <span className="span-error">{props.errors.avatar}</span>
                   )}
                 </div>
-                <div className="d-flex flex-column " id="name">
+                <div className="d-flex flex-column widthAuth" id="name">
                   <TextField
                     fullWidth
                     label="Full Name"
@@ -110,7 +117,7 @@ const SignUp = () => {
                     <span className="span-error">{props.errors.email}</span>
                   )}
                 </div>
-                <div className="d-flex flex-column" id="email">
+                <div className="d-flex flex-column widthAuth" id="email">
                   <TextField
                     fullWidth
                     label="email"
@@ -125,7 +132,7 @@ const SignUp = () => {
                     <span className="span-error">{props.errors.email}</span>
                   )}
                 </div>
-                <div className="d-flex flex-column" id="password">
+                <div className="d-flex flex-column widthAuth" id="password">
                   <TextField
                     fullWidth
                     label="Password"
@@ -152,10 +159,10 @@ const SignUp = () => {
                 &gt; Forgot password?
               </a> */}
                 </div>
-              </form>
-            )}
-          </Formik>
-        </div>
+              </Paper>
+            </form>
+          )}
+        </Formik>
       )}
     </>
   );

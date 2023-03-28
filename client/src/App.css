@@ -38,11 +38,18 @@
 }
 
 .formSignup {
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.widthAuth {
+  width: 100%;
 }
 
 @media only screen and (max-width: 900px) {
-  .formSignup {
+  .widthAuth {
     width: 100%;
   }
 }

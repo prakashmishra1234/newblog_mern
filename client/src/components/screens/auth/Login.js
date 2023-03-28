@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { Grid, Paper, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Formik } from "formik";
 import React, { useContext, useState } from "react";
@@ -45,16 +45,23 @@ const Login = () => {
       {loading ? (
         <AuthBackdrop loading={loading} setLoading={setLoading} />
       ) : (
-        <div className="container-form d-flex justify-content-center h-100 align-items-center">
-          <Formik
-            initialValues={LoginValidator.initials}
-            validationSchema={LoginValidator.validation}
-            onSubmit={(values, actions) => {
-              onClickLogin(values, actions);
-            }}
-          >
-            {(props) => (
-              <form onSubmit={props.handleSubmit} className="formSignup">
+        <Formik
+          initialValues={LoginValidator.initials}
+          validationSchema={LoginValidator.validation}
+          onSubmit={(values, actions) => {
+            onClickLogin(values, actions);
+          }}
+        >
+          {(props) => (
+            <form onSubmit={props.handleSubmit} className="formSignup">
+              <Paper
+                elevation={3}
+                sx={{
+                  padding: "1rem",
+                  height: "100%",
+                  width: { xs: "100%", md: "50%" },
+                }}
+              >
                 <Typography
                   sx={{
                     display: "flex",
@@ -65,7 +72,7 @@ const Login = () => {
                 >
                   Welcome Back
                 </Typography>
-                <div className="d-flex flex-column" id="email">
+                <div className="d-flex flex-column widthAuth" id="email">
                   <TextField
                     fullWidth
                     label="email"
@@ -80,7 +87,7 @@ const Login = () => {
                     <span className="span-error">{props.errors.email}</span>
                   )}
                 </div>
-                <div className="d-flex flex-column" id="password">
+                <div className="d-flex flex-column widthAuth" id="password">
                   <TextField
                     fullWidth
                     label="Password"
@@ -106,10 +113,10 @@ const Login = () => {
                 &gt; Forgot password?
               </a> */}
                 </div>
-              </form>
-            )}
-          </Formik>
-        </div>
+              </Paper>
+            </form>
+          )}
+        </Formik>
       )}
     </>
   );

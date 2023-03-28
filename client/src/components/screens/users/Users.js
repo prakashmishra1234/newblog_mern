@@ -69,23 +69,6 @@ const Users = () => {
                   }}
                 />
               </Grid>
-              {/* <Grid
-                items
-                xs={12}
-                sm={6}
-                sx={{
-                  display: "flex",
-                  marginTop: { xs: "1rem", sm: "0" },
-                  justifyContent: { xs: "space-between", sm: "flex-end" },
-                }}
-              >
-                <Button variant="outlined" style={{ margin: "0 1rem" }}>
-                  Clear
-                </Button>
-                <Button variant="outlined" style={{ margin: "0 1rem" }}>
-                  Search
-                </Button>
-              </Grid> */}
             </Grid>
           </Paper>
 
