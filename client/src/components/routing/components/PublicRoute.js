@@ -1,15 +1,21 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { LOCAL_STORAGE_KEY } from "../../../Config";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../Routeconstant";
 
 function PublicRoute(props) {
-  const Auth = useContext(AuthContext);
+  const context = useContext(AuthContext);
+  const Auth = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
-  if (!Auth.isLogin) {
-    return props.children;
+  if (Auth && Auth.isLoggesIn) {
+    context.setIslogin(true);
   }
-  return <Navigate to={Routeconstant.HOME} />;
+
+  if (Auth && Auth.isLoggesIn) {
+    return <Navigate to={Routeconstant.HOME} />;
+  }
+  return props.children;
 }
 
 export default PublicRoute;
