@@ -213,9 +213,20 @@ const Profile = () => {
             </Paper>
             {postByUser.length ? (
               <>
-                {postByUser.map((item, index) => {
-                  return <PostCard data={item} key={index} />;
-                })}
+                <Grid container>
+                  {postByUser.map((i, index) => {
+                    return (
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{ padding: { sm: "0", md: "1rem" } }}
+                      >
+                        <PostCard data={i} key={index} />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
               </>
             ) : (
               <Paper

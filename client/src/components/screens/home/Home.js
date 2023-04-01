@@ -3,6 +3,7 @@ import {
   Button,
   CircularProgress,
   Grid,
+  Paper,
   Skeleton,
   Typography,
 } from "@mui/material";
@@ -48,65 +49,49 @@ const Home = () => {
   };
 
   return (
-    <Box>
-      <Grid container spacing={3}>
-        {loading ? (
-          <>
-            {[1, 2, 3, 4, 5].map((item, index) => {
+    <Paper
+      elevation={3}
+      sx={{
+        marginTop: { sm: "0", md: "1rem" },
+        padding: { sm: "0", md: "1rem" },
+        display: "flex",
+        flexDirection: { md: "row", xs: "column" },
+      }}
+    >
+      {loading ? (
+        <>
+          <Grid container>
+            {[1, 2, 3, 4, , 5].map((i, index) => {
               return (
-                <Grid item xs={12} key={index}>
-                  <Skeleton height={200} />
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx={{ padding: { sm: "0", md: "1rem" }, height: "25rem" }}
+                >
+                  <Skeleton sx={{ height: "100%", width: "100%" }} />
                 </Grid>
               );
             })}
-          </>
-        ) : (
-          <>
-            <Grid item xs={12}>
-              {allPost.map((item, index) => {
-                return <PostCard data={item} key={index} />;
-              })}
-            </Grid>
-            {totalPost === allPost.length ? (
+          </Grid>
+        </>
+      ) : (
+        <Grid container>
+          {allPost.map((i, index) => {
+            return (
               <Grid
                 item
                 xs={12}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                md={6}
+                sx={{ padding: { sm: "0", md: "1rem" } }}
               >
-                <Typography>No more post!</Typography>
+                <PostCard data={i} key={index} />
               </Grid>
-            ) : (
-              <Grid
-                item
-                xs={12}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Button
-                  variant="outlined"
-                  style={{ minWidth: "7rem" }}
-                  onClick={() => {
-                    let temp = page;
-                    temp = temp + 1;
-                    getAllPost(temp);
-                    setPage(temp);
-                  }}
-                >
-                  {loadingMore ? <CircularProgress size={24} /> : "Show More"}
-                </Button>
-              </Grid>
-            )}
-          </>
-        )}
-      </Grid>
-    </Box>
+            );
+          })}
+        </Grid>
+      )}
+    </Paper>
   );
 };
 

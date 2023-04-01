@@ -53,7 +53,7 @@ exports.getAllPosts = catchAsyncError(async (req, res, next) => {
   res.status(201).json({
     success: true,
     postCount,
-    result,
+    posts: result,
   });
 });
 
