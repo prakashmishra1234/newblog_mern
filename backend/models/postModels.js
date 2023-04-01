@@ -55,6 +55,7 @@ const postSchema = Schema({
   author: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
+    required: true,
   },
 });
 

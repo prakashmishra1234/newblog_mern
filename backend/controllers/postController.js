@@ -7,11 +7,28 @@ const ObjectId = require("mongoose").Types.ObjectId;
 
 //Create Post
 exports.createPosts = catchAsyncError(async (req, res, next) => {
-  const temp = {
-    ...req.body,
-    author: req.user._id,
-  };
-  const post = await Post.create(temp);
+  let images = [];
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+  const imagesLinks = [];
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "posts",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+  req.body.author = req.user;
+
+  const post = await Post.create(req.body);
   res.status(201).json({
     success: true,
     post,
@@ -26,10 +43,17 @@ exports.getAllPosts = catchAsyncError(async (req, res, next) => {
     .search()
     .pagination(resultPerPage);
   const posts = await ApiFeature.query;
+  const result = [];
+  for (let i = 0; i < posts.length; i++) {
+    const user = await User.findById(posts[i].author.toString());
+    const post = { ...posts[i]._doc };
+    post.postedBy = user;
+    result.push(post);
+  }
   res.status(201).json({
     success: true,
     postCount,
-    posts,
+    result,
   });
 });
 
@@ -81,13 +105,14 @@ exports.postByUser = catchAsyncError(async (req, res, next) => {
     },
     {
       $lookup: {
-        from: "posts", //must be collection name for posts
+        from: "posts",
         localField: "_id",
         foreignField: "author",
         as: "posts",
       },
     },
   ]);
+
   const posts = [...result[0].posts];
   const postCount = posts.length;
   res.status(201).json({
