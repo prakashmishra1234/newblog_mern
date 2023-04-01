@@ -4,34 +4,22 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 const ApiFeatures = require("../utils/apifeatures");
 const User = require("../models/userModel");
 const ObjectId = require("mongoose").Types.ObjectId;
+const cloudinary = require("cloudinary");
 
 //Create Post
 exports.createPosts = catchAsyncError(async (req, res, next) => {
-  let images = [];
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
-  }
-  const imagesLinks = [];
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "posts",
-    });
-
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
-
-  req.body.images = imagesLinks;
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.images, {
+    folder: "posts",
+  });
+  req.body.images = {
+    public_id: myCloud.public_id,
+    url: myCloud.secure_url,
+  };
   req.body.author = req.user;
-
   const post = await Post.create(req.body);
   res.status(201).json({
     success: true,
-    post,
+    message: "Post created successfully",
   });
 });
 

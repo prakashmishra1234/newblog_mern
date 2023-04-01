@@ -13,23 +13,23 @@ import { Grid, IconButton, Paper } from "@mui/material";
 export default function PostCard({ data }) {
   return (
     <Card sx={{ margin: "20px" }}>
-      <Carousel animation="slide">
-        {[1, 2, 3].map((item, index) => {
-          return (
-            <CardMedia
-              key={index}
-              sx={{ height: 300 }}
-              image={`${baseName}myimage.jpeg`}
-              title="green iguana"
-            />
-          );
-        })}
-      </Carousel>
+      {data.images.url ? (
+        <Carousel animation="slide">
+          <CardMedia
+            sx={{ height: "300px" }}
+            image={data.images.url}
+            title="Post Image"
+          />
+        </Carousel>
+      ) : null}
+
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {data?.title ?? "N/A"}
         </Typography>
-        <Typography>{data?.text.slice(0, 280) + "..." ?? "N/A"}</Typography>
+        <Typography style={{ wordBreak: "break-word" }}>
+          {data?.text.slice(0, 280) + "..." ?? "N/A"}
+        </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Read More</Button>

@@ -65,6 +65,7 @@ const Home = () => {
               return (
                 <Grid
                   item
+                  key={index}
                   xs={12}
                   md={6}
                   sx={{ padding: { sm: "0", md: "1rem" }, height: "25rem" }}
@@ -81,11 +82,12 @@ const Home = () => {
             return (
               <Grid
                 item
+                key={index}
                 xs={12}
                 md={6}
                 sx={{ padding: { sm: "0", md: "1rem" } }}
               >
-                <PostCard data={i} key={index} />
+                <PostCard data={i} />
               </Grid>
             );
           })}

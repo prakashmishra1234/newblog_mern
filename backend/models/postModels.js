@@ -2,16 +2,14 @@ const mongoose = require("mongoose");
 Schema = mongoose.Schema;
 
 const postSchema = Schema({
-  images: [
-    {
-      public_id: {
-        type: String,
-      },
-      url: {
-        type: String,
-      },
+  images: {
+    public_id: {
+      type: String,
     },
-  ],
+    url: {
+      type: String,
+    },
+  },
   category: {
     type: String,
     trim: true,
