@@ -46,6 +46,7 @@ const Header = () => {
       .then((res) => {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
         context.setIslogin(false);
+        context.setUserData({});
         navigate(Routeconstant.LOGIN);
       })
       .catch((err) => {
@@ -73,7 +74,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            NEWBLOG
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -120,7 +121,7 @@ const Header = () => {
                   <Typography textAlign="center">Create</Typography>
                 </MenuItem>
               </Link>
-              {context.userData.role === "admin" ? (
+              {context.userData.role && context.userData.role === "admin" ? (
                 <Link to={Routeconstant.USER}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">Users</Typography>
@@ -214,7 +215,7 @@ const Header = () => {
             >
               Create
             </Link>
-            {context.userData.role === "admin" ? (
+            {context.userData.role && context.userData.role === "admin" ? (
               <Link
                 style={{
                   color: "white",

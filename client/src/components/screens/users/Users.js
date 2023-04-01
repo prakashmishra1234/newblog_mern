@@ -9,6 +9,7 @@ const Users = () => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const context = useContext(AuthContext);
+
   const getUserList = () => {
     setLoading(true);
     axios
@@ -33,9 +34,9 @@ const Users = () => {
       return i.email.includes(searchText);
     });
     setUserList([...temp]);
-    if (searchText.length === 0) {
-      getUserList();
-    }
+    // if (searchText.length === 0) {
+    //   getUserList();
+    // }
   }, [searchText]);
 
   return (
@@ -59,7 +60,7 @@ const Users = () => {
             style={{ width: "100%", marginBottom: "1rem", padding: "1rem" }}
           >
             <Grid container>
-              <Grid items xs={12}>
+              <Grid item xs={12}>
                 <input
                   style={{ width: "100%", height: "100%" }}
                   placeholder="Search for user by email"
@@ -80,11 +81,11 @@ const Users = () => {
                 style={{ width: "100%", marginBottom: "1rem" }}
               >
                 <Grid container style={{ padding: "1rem" }}>
-                  <Grid items xs={12} sm={4} md={3}>
+                  <Grid item xs={12} sm={4} md={3}>
                     <Typography style={{ color: "#827e7e" }}>Name</Typography>
                     <Typography>{item?.name ?? "N/A"}</Typography>
                   </Grid>
-                  <Grid items xs={12} sm={4} md={3}>
+                  <Grid item xs={12} sm={4} md={3}>
                     <Typography
                       style={{ color: "#827e7e", wordWrap: "break-word" }}
                     >
@@ -94,7 +95,7 @@ const Users = () => {
                       {item?.email ?? "N/A"}
                     </Typography>
                   </Grid>
-                  <Grid items xs={12} sm={4} md={3}>
+                  <Grid item xs={12} sm={4} md={3}>
                     <Typography
                       style={{ color: "#827e7e", wordWrap: "break-word" }}
                     >
@@ -104,7 +105,7 @@ const Users = () => {
                       {item?.role ?? "N/A"}
                     </Typography>
                   </Grid>
-                  <Grid items xs={12} sm={4} md={3}>
+                  <Grid item xs={12} sm={4} md={3}>
                     <Typography
                       style={{ color: "#827e7e", wordWrap: "break-word" }}
                     >

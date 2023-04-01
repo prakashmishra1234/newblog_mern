@@ -27,11 +27,19 @@ const SignUp = () => {
     axios
       .post("/api/v1/register", body)
       .then((res) => {
-        localStorage.setItem(
-          LOCAL_STORAGE_KEY,
-          JSON.stringify({ isLoggesIn: true })
-        );
         context.setIslogin(true);
+        axios
+          .get("/api/v1/me")
+          .then((res) => {
+            context.setUserData(res.data?.user ?? {});
+            localStorage.setItem(
+              LOCAL_STORAGE_KEY,
+              JSON.stringify({ isLoggesIn: true, role: res.data?.user?.role })
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         navigate(Routeconstant.HOME);
       })
       .catch((err) => {

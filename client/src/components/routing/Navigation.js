@@ -14,26 +14,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute.js";
 import { Routeconstant } from "./Routeconstant";
 import CheckAdmin from "./components/CheckAdmin";
-import axios from "axios";
 
 const Navigation = () => {
-  const context = useContext(AuthContext);
-
-  useEffect(() => {
-    getUserData();
-  }, []);
-
-  const getUserData = () => {
-    axios
-      .get("/api/v1/me")
-      .then((res) => {
-        context.setUserData(res.data?.user ?? {});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <Routes>
       <Route path={Routeconstant.HOME} element={<Layout />}>
@@ -64,11 +46,9 @@ const Navigation = () => {
         <Route
           path={Routeconstant.USER}
           element={
-            <ProtectedRoute>
-              {/* <CheckAdmin> */}
+            <CheckAdmin>
               <Users />
-              {/* </CheckAdmin> */}
-            </ProtectedRoute>
+            </CheckAdmin>
           }
         />
         <Route
