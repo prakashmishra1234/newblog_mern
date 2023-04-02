@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { Formik } from "formik";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import instance from "../../../api/Interceptor";
 import { LOCAL_STORAGE_KEY } from "../../../Config";
 import { SignupValidator } from "../../../helper/helper";
@@ -163,13 +163,17 @@ const SignUp = () => {
                   <button type="submit" className="btn btn-primary">
                     SignUp
                   </button>
-                  {/* <a
+                  <Typography style={{ display: "flex", alignItems: "center" }}>
+                    Already registered?{" "}
+                    <Link to={Routeconstant.LOGIN}>Login</Link>
+                  </Typography>
+                </div>
+                {/* <a
                 className="pointer"
                 // onClick={() => navigate(routeConstant.FORGETPASSWORD)}
               >
                 &gt; Forgot password?
               </a> */}
-                </div>
               </Paper>
             </form>
           )}
