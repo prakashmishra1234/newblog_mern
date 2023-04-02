@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute.js";
 import { Routeconstant } from "./Routeconstant";
 import CheckAdmin from "./components/CheckAdmin";
+import PostDetails from "../screens/postDetails/PostDetails";
 
 const Navigation = () => {
   return (
@@ -40,6 +41,14 @@ const Navigation = () => {
           element={
             <ProtectedRoute>
               <About />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={Routeconstant.POST_DETAILS}
+          element={
+            <ProtectedRoute>
+              <PostDetails />
             </ProtectedRoute>
           }
         />

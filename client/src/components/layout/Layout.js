@@ -40,7 +40,7 @@ const Layout = () => {
           overflowY: "auto",
         }}
       >
-        <div className="container">
+        <div className="container outletcontainer">
           <Outlet />
         </div>
       </div>

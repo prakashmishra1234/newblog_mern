@@ -52,6 +52,9 @@
   .widthAuth {
     width: 100%;
   }
+  .outletcontainer {
+    padding: 0;
+  }
 }
 
 @keyframes App-logo-spin {

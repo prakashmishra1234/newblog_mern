@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   CircularProgress,
@@ -9,7 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import instance from "../../../api/Interceptor";
+import { DateFormat } from "../../../services/moment";
 import PostCard from "../../common/PostCard";
 
 const Home = () => {
@@ -61,7 +62,7 @@ const Home = () => {
       {loading ? (
         <>
           <Grid container>
-            {[1, 2, 3, 4, , 5].map((i, index) => {
+            {[1, 2, 3, 4, 5].map((i, index) => {
               return (
                 <Grid
                   item
@@ -87,7 +88,32 @@ const Home = () => {
                 md={6}
                 sx={{ padding: { sm: "0", md: "1rem" } }}
               >
-                <PostCard data={i} />
+                <Paper
+                  elevation={3}
+                  sx={{
+                    marginBottom: { xs: "1rem", md: "0" },
+                    minHeight: { xs: "0", md: "38.6rem" },
+                  }}
+                >
+                  <Box style={{ padding: "4px", display: "flex" }}>
+                    <Avatar
+                      style={{ height: "4rem", width: "4rem" }}
+                      alt="user"
+                      src={i?.postedBy?.avatar?.url ?? ""}
+                    />
+                    <div
+                      style={{ paddingLeft: "0.5rem", paddingTop: "0.3rem" }}
+                    >
+                      <Typography sx={{ fontWeight: "700" }}>
+                        {i?.postedBy?.name ?? ""}
+                      </Typography>
+                      <Typography>
+                        Posted on : {DateFormat(i?.date ?? null)}
+                      </Typography>
+                    </div>
+                  </Box>
+                  <PostCard data={i} />
+                </Paper>
               </Grid>
             );
           })}
