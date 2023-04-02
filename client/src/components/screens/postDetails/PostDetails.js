@@ -7,15 +7,17 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useContext } from "react";
 import Carousel from "react-material-ui-carousel";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DateFormat } from "../../../services/moment";
+import { AuthContext } from "../../../store/store";
 
 const PostDetails = () => {
   const location = useLocation();
   const { data } = location.state;
-  const navigate = useNavigate();
+  const context = useContext(AuthContext);
+  const { userData } = context;
 
   return (
     <Paper
@@ -29,13 +31,13 @@ const PostDetails = () => {
         <Avatar
           style={{ height: "4rem", width: "4rem" }}
           alt="user"
-          src={data.postedBy?.avatar?.url ?? ""}
+          src={data.postedBy?.avatar?.url ?? userData?.avatar?.url ?? ""}
         />
         <div style={{ paddingLeft: "0.5rem", paddingTop: "0.3rem" }}>
           <Typography sx={{ fontWeight: "700" }}>
-            {data.postedBy?.name ?? ""}
+            {data?.postedBy?.name ?? userData?.name ?? ""}
           </Typography>
-          <Typography>Posted on : {DateFormat(data.date ?? null)}</Typography>
+          <Typography>Posted on : {DateFormat(data?.date ?? null)}</Typography>
         </div>
       </Box>
       <Card
