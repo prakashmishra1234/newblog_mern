@@ -7,5 +7,6 @@ const Routeconstant = {
   PROFILE: "/profile",
   ABOUT: "/about",
   USER: "/users",
+  DONATE: "/donate",
 };
 export { Routeconstant };

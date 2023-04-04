@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import { AuthContext } from "../../../store/store";
 import { DateFormat } from "../../../services/moment";
+import MetaData from "../../common/Metadata";
 
 const Users = () => {
   const [userList, setUserList] = useState([]);
@@ -41,6 +42,7 @@ const Users = () => {
 
   return (
     <>
+      <MetaData title="Users" />
       {loading ? (
         <>
           {[1, 2, 3, 4, 5, 6].map((item, index) => {

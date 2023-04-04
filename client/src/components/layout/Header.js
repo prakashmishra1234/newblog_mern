@@ -121,6 +121,11 @@ const Header = () => {
                   <Typography textAlign="center">Create</Typography>
                 </MenuItem>
               </Link>
+              <Link to={Routeconstant.DONATE}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Donate</Typography>
+                </MenuItem>
+              </Link>
               {context.userData.role && context.userData.role === "admin" ? (
                 <Link to={Routeconstant.USER}>
                   <MenuItem onClick={handleCloseNavMenu}>
@@ -214,6 +219,18 @@ const Header = () => {
               onClick={handleCloseNavMenu}
             >
               Create
+            </Link>
+            <Link
+              style={{
+                color: "white",
+                textDecoration: "none",
+                display: "block",
+                margin: "0 1rem",
+              }}
+              to={Routeconstant.DONATE}
+              onClick={handleCloseNavMenu}
+            >
+              Donate
             </Link>
             {context.userData.role && context.userData.role === "admin" ? (
               <Link

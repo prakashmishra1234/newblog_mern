@@ -12,6 +12,7 @@ import AuthBackdrop from "../auth/AuthBackdrop";
 import { toast } from "react-hot-toast";
 import { Routeconstant } from "../../routing/Routeconstant";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../../common/Metadata";
 
 const category = ["Science"];
 
@@ -49,6 +50,7 @@ const CreatePost = () => {
 
   return (
     <>
+      <MetaData title="Create Post" />
       {loading ? (
         <AuthBackdrop loading={loading} setLoading={setLoading} />
       ) : null}

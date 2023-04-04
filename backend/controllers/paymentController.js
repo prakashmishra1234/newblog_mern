@@ -10,7 +10,6 @@ exports.processPayment = catchAsyncError(async (req, res, next) => {
       company: "newblog",
     },
   });
-
   res
     .status(200)
     .json({ success: true, client_secret: myPayment.client_secret });

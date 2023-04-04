@@ -14,6 +14,11 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
+//config
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config({ path: "backend/config/config.env" });
+}
+
 app.use(
   express.json({
     limit: "50mb",
@@ -26,9 +31,11 @@ app.use(fileUpload());
 //Route Imports
 const posts = require("./routes/postRoute");
 const newUser = require("./routes/userRoute");
+const payment = require("./routes/paymentRoute");
 
 app.use("/api/v1", posts);
 app.use("/api/v1", newUser);
+app.use("/api/v1", payment);
 app.set("trust proxy", 1);
 
 // static file
