@@ -11,23 +11,20 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link, useNavigate } from "react-router-dom";
 import { Routeconstant } from "../routing/Routeconstant";
 import { AuthContext } from "../../store/store";
-import instance from "../../api/Interceptor";
 import { LOCAL_STORAGE_KEY } from "../../Config";
 import axios from "axios";
+import Sidebar from "./Sidebar";
 
 const Header = () => {
   const context = useContext(AuthContext);
   const navigate = useNavigate(AuthContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [state, setState] = React.useState(false);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -55,10 +52,9 @@ const Header = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="transparent">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -83,79 +79,14 @@ const Header = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={() => setState(true)}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              <Link to={Routeconstant.HOME}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Home</Typography>
-                </MenuItem>
-              </Link>
-              <Link to={Routeconstant.ABOUT}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">About</Typography>
-                </MenuItem>
-              </Link>
-              <Link to={Routeconstant.CREATE}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Create</Typography>
-                </MenuItem>
-              </Link>
-              <Link to={Routeconstant.DONATE}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Donate</Typography>
-                </MenuItem>
-              </Link>
-              {context.userData.role && context.userData.role === "admin" ? (
-                <Link to={Routeconstant.USER}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">Users</Typography>
-                  </MenuItem>
-                </Link>
-              ) : null}
-
-              {context.isLogin ? null : (
-                <Box
-                  sx={{
-                    mr: 2,
-                    display: { xs: "block", md: "none" },
-                  }}
-                >
-                  <Link to={Routeconstant.LOGIN}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">Login</Typography>
-                    </MenuItem>
-                  </Link>
-                  <Link to={Routeconstant.SIGNUP}>
-                    <MenuItem onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">SignUp</Typography>
-                    </MenuItem>
-                  </Link>
-                </Box>
-              )}
-            </Menu>
+            <Sidebar state={state} setState={setState} />
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+
           <Typography
             variant="h5"
             noWrap
@@ -172,7 +103,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            NEWBLOG
           </Typography>
           <Box
             sx={{
@@ -186,7 +117,6 @@ const Header = () => {
           >
             <Link
               style={{
-                color: "white",
                 textDecoration: "none",
                 display: "block",
                 margin: "0 1rem",
@@ -199,7 +129,6 @@ const Header = () => {
             <Link
               to={Routeconstant.ABOUT}
               style={{
-                color: "white",
                 textDecoration: "none",
                 display: "block",
                 margin: "0 1rem",
@@ -210,7 +139,6 @@ const Header = () => {
             </Link>
             <Link
               style={{
-                color: "white",
                 textDecoration: "none",
                 display: "block",
                 margin: "0 1rem",
@@ -222,7 +150,6 @@ const Header = () => {
             </Link>
             <Link
               style={{
-                color: "white",
                 textDecoration: "none",
                 display: "block",
                 margin: "0 1rem",
@@ -235,7 +162,6 @@ const Header = () => {
             {context.userData.role && context.userData.role === "admin" ? (
               <Link
                 style={{
-                  color: "white",
                   textDecoration: "none",
                   display: "block",
                   margin: "0 1rem",
@@ -312,15 +238,14 @@ const Header = () => {
                 display: { xs: "none", md: "flex" },
               }}
             >
-              <Link to={Routeconstant.LOGIN}>
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Login
-                </Button>
+              <Link to={Routeconstant.LOGIN} style={{ textDecoration: "none" }}>
+                <Button sx={{ my: 2, display: "block" }}>Login</Button>
               </Link>
-              <Link to={Routeconstant.SIGNUP}>
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  Signup
-                </Button>
+              <Link
+                to={Routeconstant.SIGNUP}
+                style={{ textDecoration: "none" }}
+              >
+                <Button sx={{ my: 2, display: "block" }}>Signup</Button>
               </Link>
             </Box>
           )}

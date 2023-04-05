@@ -4,6 +4,7 @@ import Header from "./Header";
 import { AuthContext } from "../../store/store";
 import axios from "axios";
 import { LOCAL_STORAGE_KEY } from "../../Config";
+import Sidebar from "./Sidebar";
 
 const Layout = () => {
   const context = useContext(AuthContext);

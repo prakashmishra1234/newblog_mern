@@ -19,8 +19,8 @@ import Payment from "../screens/payment/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js/pure";
+loadStripe.setLoadParameters({ advancedFraudSignals: false });
 
-console.log(loadStripe);
 const Navigation = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
   const getStripeApiKey = async () => {
@@ -29,7 +29,6 @@ const Navigation = () => {
   };
 
   useEffect(() => {
-    loadStripe.setLoadParameters({ advancedFraudSignals: false });
     getStripeApiKey();
   }, []);
 
@@ -46,16 +45,17 @@ const Navigation = () => {
             }
           />
 
-          {stripeApiKey && (
-            <Route
-              path={Routeconstant.DONATE}
-              element={
+          <Route
+            path={Routeconstant.DONATE}
+            element={
+              <ProtectedRoute>
                 <Elements stripe={loadStripe(stripeApiKey)}>
                   <Payment />
                 </Elements>
-              }
-            />
-          )}
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path={Routeconstant.PROFILE}
             element={

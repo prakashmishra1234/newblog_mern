@@ -50,15 +50,7 @@ const Home = () => {
   };
 
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        marginTop: { sm: "0", md: "1rem" },
-        padding: { sm: "0", md: "1rem" },
-        display: "flex",
-        flexDirection: { md: "row", xs: "column" },
-      }}
-    >
+    <>
       {loading ? (
         <>
           <Grid container>
@@ -119,7 +111,7 @@ const Home = () => {
           })}
         </Grid>
       )}
-    </Paper>
+    </>
   );
 };
 
