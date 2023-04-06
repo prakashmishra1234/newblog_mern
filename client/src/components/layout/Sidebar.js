@@ -124,7 +124,7 @@ export default function Sidebar({ state, setState }) {
                 </Link>
               </ListItemButton>
             </ListItem>
-            {context.userData.role.includes("admin") ? (
+            {context.userData.role === "admin" ? (
               <ListItem disablePadding>
                 <ListItemButton>
                   <Link
