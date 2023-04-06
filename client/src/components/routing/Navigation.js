@@ -44,18 +44,18 @@ const Navigation = () => {
               </ProtectedRoute>
             }
           />
-
-          <Route
-            path={Routeconstant.DONATE}
-            element={
-              <ProtectedRoute>
-                <Elements stripe={loadStripe(stripeApiKey)}>
-                  <Payment />
-                </Elements>
-              </ProtectedRoute>
-            }
-          />
-
+          {stripeApiKey ? (
+            <Route
+              path={Routeconstant.DONATE}
+              element={
+                <ProtectedRoute>
+                  <Elements stripe={loadStripe(stripeApiKey)}>
+                    <Payment />
+                  </Elements>
+                </ProtectedRoute>
+              }
+            />
+          ) : null}
           <Route
             path={Routeconstant.PROFILE}
             element={
