@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,20 +12,20 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { Routeconstant } from "../routing/Routeconstant";
-import { AuthContext } from "../../store/store";
-import { LOCAL_STORAGE_KEY } from "../../Config";
-import axios from "axios";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../../store/redux/actions/UserAction";
+import CustomBackdrop from "../common/CustomBackdrop";
+import { useState } from "react";
 
 const Header = () => {
-  const context = useContext(AuthContext);
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [state, setState] = React.useState(false);
+  const dispatch = useDispatch();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [state, setState] = useState(false);
 
-  const { data, loading, error, isAuthenticated } = useSelector(
+  const { data, isAuthenticated, loading } = useSelector(
     (state) => state.userData
   );
 
@@ -43,117 +42,109 @@ const Header = () => {
   };
 
   const onClickLogout = () => {
-    axios
-      .get("/api/v1/logout")
-      .then((res) => {
-        localStorage.removeItem(LOCAL_STORAGE_KEY);
-        context.setIslogin(false);
-        context.setUserData({});
-        navigate(Routeconstant.LOGIN);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(userLogout());
   };
 
   return (
-    <AppBar position="static" color="transparent">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            NEWBLOG
-          </Typography>
+    <>
+      {loading ? <CustomBackdrop loading={loading} /> : null}
+      <AppBar position="static" color="transparent">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              NEWBLOG
+            </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={() => setState(true)}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Sidebar state={state} setState={setState} />
-          </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => setState(true)}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Sidebar state={state} setState={setState} />
+            </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            NEWBLOG
-          </Typography>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: {
-                xs: "none",
-                md: "flex",
-                alignItems: "center",
-              },
-            }}
-          >
-            <Link
-              style={{
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
                 textDecoration: "none",
-                display: "block",
-                margin: "0 1rem",
               }}
-              to={Routeconstant.HOME}
-              onClick={handleCloseNavMenu}
             >
-              Home
-            </Link>
-            <Link
-              to={Routeconstant.ABOUT}
-              style={{
-                textDecoration: "none",
-                display: "block",
-                margin: "0 1rem",
+              NEWBLOG
+            </Typography>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: {
+                  xs: "none",
+                  md: "flex",
+                  alignItems: "center",
+                },
               }}
-              onClick={handleCloseNavMenu}
             >
-              About
-            </Link>
-            <Link
-              style={{
-                textDecoration: "none",
-                display: "block",
-                margin: "0 1rem",
-              }}
-              to={Routeconstant.CREATE}
-              onClick={handleCloseNavMenu}
-            >
-              Create
-            </Link>
-            {context.stripeApiKey ? (
+              <Link
+                style={{
+                  textDecoration: "none",
+                  display: "block",
+                  margin: "0 1rem",
+                }}
+                to={Routeconstant.HOME}
+                onClick={handleCloseNavMenu}
+              >
+                Home
+              </Link>
+              <Link
+                to={Routeconstant.ABOUT}
+                style={{
+                  textDecoration: "none",
+                  display: "block",
+                  margin: "0 1rem",
+                }}
+                onClick={handleCloseNavMenu}
+              >
+                About
+              </Link>
+              <Link
+                style={{
+                  textDecoration: "none",
+                  display: "block",
+                  margin: "0 1rem",
+                }}
+                to={Routeconstant.CREATE}
+                onClick={handleCloseNavMenu}
+              >
+                Create
+              </Link>
+              {/* {context.stripeApiKey ? (
               <Link
                 style={{
                   textDecoration: "none",
@@ -165,98 +156,102 @@ const Header = () => {
               >
                 Donate
               </Link>
-            ) : null}
+            ) : null} */}
 
-            {data.role && data.role === "admin" ? (
-              <Link
-                style={{
-                  textDecoration: "none",
-                  display: "block",
-                  margin: "0 1rem",
-                }}
-                to={Routeconstant.USER}
-                onClick={handleCloseNavMenu}
-              >
-                Users
-              </Link>
-            ) : null}
-          </Box>
-          {isAuthenticated ? (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={
-                      data.avatar && data.avatar.url
-                        ? data.avatar.url
-                        : `https://ui-avatars.com/api/?name=${
-                            data.name ? data.name.split("")[0] ?? "" : ""
-                          }`
-                    }
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    textAlign="center"
+              {data.role && data.role === "admin" ? (
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    display: "block",
+                    margin: "0 1rem",
+                  }}
+                  to={Routeconstant.USER}
+                  onClick={handleCloseNavMenu}
+                >
+                  Users
+                </Link>
+              ) : null}
+            </Box>
+            {isAuthenticated ? (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={
+                        data.avatar && data.avatar.url
+                          ? data.avatar.url
+                          : `https://ui-avatars.com/api/?name=${
+                              data.name ? data.name.split("")[0] ?? "" : ""
+                            }`
+                      }
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography
+                      textAlign="center"
+                      onClick={() => {
+                        navigate(Routeconstant.PROFILE);
+                        handleCloseNavMenu();
+                        handleCloseUserMenu();
+                      }}
+                    >
+                      My Profile
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem
                     onClick={() => {
-                      navigate(Routeconstant.PROFILE);
                       handleCloseNavMenu();
                       handleCloseUserMenu();
+                      onClickLogout();
                     }}
                   >
-                    My Profile
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseNavMenu();
-                    handleCloseUserMenu();
-                    onClickLogout();
-                  }}
-                >
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
-          ) : (
-            <Box
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-              }}
-            >
-              <Link to={Routeconstant.LOGIN} style={{ textDecoration: "none" }}>
-                <Button sx={{ my: 2, display: "block" }}>Login</Button>
-              </Link>
-              <Link
-                to={Routeconstant.SIGNUP}
-                style={{ textDecoration: "none" }}
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                }}
               >
-                <Button sx={{ my: 2, display: "block" }}>Signup</Button>
-              </Link>
-            </Box>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+                <Link
+                  to={Routeconstant.LOGIN}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button sx={{ my: 2, display: "block" }}>Login</Button>
+                </Link>
+                <Link
+                  to={Routeconstant.SIGNUP}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button sx={{ my: 2, display: "block" }}>Signup</Button>
+                </Link>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 };
 

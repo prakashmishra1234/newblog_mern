@@ -5,7 +5,6 @@ import {
   Grid,
   IconButton,
   Paper,
-  Skeleton,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -26,7 +25,7 @@ const Profile = () => {
   const [openDailog, setOpenDailog] = useState(false);
   const navigate = useNavigate();
 
-  const { data, loading, error } = useSelector((state) => state.userData);
+  const { data } = useSelector((state) => state.userData);
 
   const getPostByUser = () => {
     axios

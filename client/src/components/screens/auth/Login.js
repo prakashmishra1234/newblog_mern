@@ -1,56 +1,29 @@
-import { Grid, Paper, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Paper, TextField, Typography } from "@mui/material";
 import { Formik } from "formik";
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LoginValidator } from "../../../helper/helper";
-import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../../routing/Routeconstant";
-import { LOCAL_STORAGE_KEY } from "../../../Config";
-import { toast } from "react-hot-toast";
-import axios from "axios";
-import AuthBackdrop from "./AuthBackdrop";
+import { useDispatch, useSelector } from "react-redux";
+import CustomBackdrop from "../../common/CustomBackdrop";
+import { userLogin } from "../../../store/redux/actions/UserAction";
+
 const Login = () => {
-  const context = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onClickLogin = (value) => {
-    setLoading(true);
     const body = {
       email: value.email,
       password: value.password,
     };
-    axios
-      .post("/api/v1/login", body)
-      .then((res) => {
-        context.setIslogin(true);
-        axios
-          .get("/api/v1/me")
-          .then((res) => {
-            context.setUserData(res.data?.user ?? {});
-            localStorage.setItem(
-              LOCAL_STORAGE_KEY,
-              JSON.stringify({ isLoggesIn: true, role: res.data?.user?.role })
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        navigate(Routeconstant.HOME);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message ?? "Something went wrong");
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    dispatch(userLogin(body));
   };
+
+  const { loading } = useSelector((state) => state.userData);
+
   return (
     <>
       {loading ? (
-        <AuthBackdrop loading={loading} setLoading={setLoading} />
+        <CustomBackdrop loading={loading} />
       ) : (
         <Formik
           initialValues={LoginValidator.initials}

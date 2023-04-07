@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Autocomplete,
   Avatar,
@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import AuthBackdrop from "../auth/AuthBackdrop";
+import CustomBackdrop from "../../common/CustomBackdrop";
 import { toast } from "react-hot-toast";
 import { Routeconstant } from "../../routing/Routeconstant";
 import { useNavigate } from "react-router-dom";
@@ -51,9 +51,7 @@ const CreatePost = () => {
   return (
     <>
       <MetaData title="Create Post" />
-      {loading ? (
-        <AuthBackdrop loading={loading} setLoading={setLoading} />
-      ) : null}
+      {loading ? <CustomBackdrop loading={loading} /> : null}
       <Paper elevation={3} sx={{ padding: "1rem" }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>

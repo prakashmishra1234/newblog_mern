@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserData } from "../actions/UserAction";
+import {
+  getUserData,
+  registerUser,
+  userLogin,
+  userLogout,
+} from "../actions/UserAction";
 
 const initialState = {
   data: {},
@@ -12,6 +17,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   extraReducers: {
+    //get user data
     [getUserData.pending]: (state) => {
       state.loading = true;
     },
@@ -19,8 +25,57 @@ export const userSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = true;
       state.data = payload;
+      state.error = null;
     },
     [getUserData.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.error = payload;
+    },
+
+    //Login
+    [userLogin.pending]: (state) => {
+      state.loading = true;
+    },
+    [userLogin.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.data = payload;
+      state.error = null;
+    },
+    [userLogin.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.error = payload;
+    },
+
+    //Logout
+    [userLogout.pending]: (state) => {
+      state.loading = true;
+    },
+    [userLogout.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.data = {};
+      state.error = null;
+    },
+    [userLogout.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.error = payload;
+    },
+
+    //Register
+    [registerUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [registerUser.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.data = payload;
+      state.error = null;
+    },
+    [registerUser.rejected]: (state, { payload }) => {
       state.loading = false;
       state.isAuthenticated = false;
       state.error = payload;
