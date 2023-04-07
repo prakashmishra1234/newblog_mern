@@ -20,15 +20,16 @@ import { Routeconstant } from "../../routing/Routeconstant";
 import ProfileDailogue from "./ProfileDailogue";
 import { toast } from "react-hot-toast";
 import MetaData from "../../common/Metadata";
+import { useSelector } from "react-redux";
 const Profile = () => {
   const context = useContext(AuthContext);
   const [postByUser, setPostByUser] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [openDailog, setOpenDailog] = useState(false);
   const navigate = useNavigate();
 
+  const { data, loading, error } = useSelector((state) => state.userData);
+
   const getPostByUser = () => {
-    setLoading(true);
     axios
       .post("/api/v1/me/post")
       .then((res) => {
@@ -37,9 +38,6 @@ const Profile = () => {
       .catch((err) => {
         setPostByUser([]);
         console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
       });
   };
 
@@ -109,11 +107,10 @@ const Profile = () => {
                           style={{ height: "10rem", width: "10rem" }}
                           alt="user"
                           src={
-                            context.userData.avatar &&
-                            context.userData.avatar.url
-                              ? context.userData.avatar.url
+                            data.avatar && data.avatar.url
+                              ? data.avatar.url
                               : `https://ui-avatars.com/api/?name=${
-                                  context.userData.name
+                                  data.name
                                     ? context?.userData?.name.split("")[0] ?? ""
                                     : ""
                                 }`

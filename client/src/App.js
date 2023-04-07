@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./store/store";
 import { Toaster } from "react-hot-toast";
 import { baseName } from "./Config";
+import { withCookies } from "react-cookie";
 
 function App() {
   return (
@@ -21,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default withCookies(App);

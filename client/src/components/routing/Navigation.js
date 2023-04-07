@@ -12,18 +12,23 @@ import Users from "../screens/users/Users.js";
 import Profile from "../screens/profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute.js";
-import FreeRoute from "./components/FreeRoute";
 import { Routeconstant } from "./Routeconstant";
 import CheckAdmin from "./components/CheckAdmin";
 import PostDetails from "../screens/postDetails/PostDetails";
 import Payment from "../screens/payment/Payment";
 import { Elements } from "@stripe/react-stripe-js";
-import axios from "axios";
+import { getUserData } from "../../store/redux/actions/UserAction";
 import { loadStripe } from "@stripe/stripe-js/pure";
+import { useDispatch } from "react-redux";
+
 loadStripe.setLoadParameters({ advancedFraudSignals: false });
 
 const Navigation = () => {
-  const context = useContext(AuthContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserData());
+  }, []);
 
   return (
     <>
@@ -37,7 +42,7 @@ const Navigation = () => {
               </ProtectedRoute>
             }
           />
-          {context.stripeApiKey ? (
+          {/* {context.stripeApiKey ? (
             <Route
               path={Routeconstant.DONATE}
               element={
@@ -48,7 +53,7 @@ const Navigation = () => {
                 </ProtectedRoute>
               }
             />
-          ) : null}
+          ) : null} */}
           <Route
             path={Routeconstant.PROFILE}
             element={
@@ -97,14 +102,7 @@ const Navigation = () => {
               </PublicRoute>
             }
           />
-          <Route
-            path={Routeconstant.HOME}
-            element={
-              <FreeRoute>
-                <Home />
-              </FreeRoute>
-            }
-          />
+          <Route path={Routeconstant.HOME} element={<Home />} />
         </Route>
       </Routes>
     </>

@@ -13,9 +13,14 @@ import { Routeconstant } from "../routing/Routeconstant";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../store/store";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import { useSelector } from "react-redux";
 
 export default function Sidebar({ state, setState }) {
   const context = React.useContext(AuthContext);
+
+  const { data, loading, error, isAuthenticated } = useSelector(
+    (state) => state.userData
+  );
 
   return (
     <React.Fragment>
@@ -130,7 +135,7 @@ export default function Sidebar({ state, setState }) {
               </ListItem>
             ) : null}
 
-            {context.userData.role === "admin" ? (
+            {data.role === "admin" ? (
               <ListItem disablePadding>
                 <ListItemButton>
                   <Link
@@ -150,7 +155,7 @@ export default function Sidebar({ state, setState }) {
                 </ListItemButton>
               </ListItem>
             ) : null}
-            {context.isLogin ? null : (
+            {isAuthenticated ? null : (
               <>
                 <ListItem disablePadding>
                   <ListItemButton>

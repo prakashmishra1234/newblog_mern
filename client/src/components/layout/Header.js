@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,13 +17,18 @@ import { AuthContext } from "../../store/store";
 import { LOCAL_STORAGE_KEY } from "../../Config";
 import axios from "axios";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const context = useContext(AuthContext);
-  const navigate = useNavigate(AuthContext);
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [state, setState] = React.useState(false);
+
+  const { data, loading, error, isAuthenticated } = useSelector(
+    (state) => state.userData
+  );
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -162,7 +167,7 @@ const Header = () => {
               </Link>
             ) : null}
 
-            {context.userData.role && context.userData.role === "admin" ? (
+            {data.role && data.role === "admin" ? (
               <Link
                 style={{
                   textDecoration: "none",
@@ -176,20 +181,17 @@ const Header = () => {
               </Link>
             ) : null}
           </Box>
-
-          {context.isLogin ? (
+          {isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="Remy Sharp"
                     src={
-                      context.userData.avatar && context.userData.avatar.url
-                        ? context.userData.avatar.url
+                      data.avatar && data.avatar.url
+                        ? data.avatar.url
                         : `https://ui-avatars.com/api/?name=${
-                            context.userData.name
-                              ? context?.userData?.name.split("")[0] ?? ""
-                              : ""
+                            data.name ? data.name.split("")[0] ?? "" : ""
                           }`
                     }
                   />

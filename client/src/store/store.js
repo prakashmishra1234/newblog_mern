@@ -10,10 +10,10 @@ function AuthProvider(props) {
     <AuthContext.Provider
       value={{
         isLogin,
-        userData,
+
         stripeApiKey,
         setStripeApiKey,
-        setUserData,
+
         setIslogin,
       }}
     >
