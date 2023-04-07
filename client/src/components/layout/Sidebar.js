@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../store/store";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import { useSelector } from "react-redux";
+import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
+import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
 
 export default function Sidebar({ state, setState }) {
   const context = React.useContext(AuthContext);
@@ -49,8 +51,22 @@ export default function Sidebar({ state, setState }) {
           <List>
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemIcon>NEWBLOG</ListItemIcon>
-                <ListItemText />
+                <ListItemIcon
+                  sx={{
+                    mr: 2,
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                    fontSize: "1.5rem",
+                    letterSpacing: ".3rem",
+                    color: "inherit",
+                    textDecoration: "none",
+                  }}
+                >
+                  NEWBLOG
+                </ListItemIcon>
               </ListItemButton>
             </ListItem>
           </List>
@@ -89,7 +105,9 @@ export default function Sidebar({ state, setState }) {
                     setState(false);
                   }}
                 >
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                    <ContactPhoneOutlinedIcon />
+                  </ListItemIcon>
                   <ListItemText primary={"About"} />
                 </Link>
               </ListItemButton>
@@ -149,7 +167,9 @@ export default function Sidebar({ state, setState }) {
                       setState(false);
                     }}
                   >
-                    <ListItemIcon></ListItemIcon>
+                    <ListItemIcon>
+                      <ListAltOutlinedIcon />
+                    </ListItemIcon>
                     <ListItemText primary={"Users"} />
                   </Link>
                 </ListItemButton>
