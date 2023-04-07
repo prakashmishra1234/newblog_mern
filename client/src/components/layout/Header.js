@@ -148,17 +148,20 @@ const Header = () => {
             >
               Create
             </Link>
-            <Link
-              style={{
-                textDecoration: "none",
-                display: "block",
-                margin: "0 1rem",
-              }}
-              to={Routeconstant.DONATE}
-              onClick={handleCloseNavMenu}
-            >
-              Donate
-            </Link>
+            {context.stripeApiKey ? (
+              <Link
+                style={{
+                  textDecoration: "none",
+                  display: "block",
+                  margin: "0 1rem",
+                }}
+                to={Routeconstant.DONATE}
+                onClick={handleCloseNavMenu}
+              >
+                Donate
+              </Link>
+            ) : null}
+
             {context.userData.role && context.userData.role === "admin" ? (
               <Link
                 style={{

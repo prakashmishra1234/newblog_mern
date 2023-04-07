@@ -12,6 +12,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { Routeconstant } from "../routing/Routeconstant";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../store/store";
+import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 
 export default function Sidebar({ state, setState }) {
   const context = React.useContext(AuthContext);
@@ -101,29 +102,34 @@ export default function Sidebar({ state, setState }) {
                     setState(false);
                   }}
                 >
-                  <ListItemIcon></ListItemIcon>
+                  <ListItemIcon>
+                    <BookOutlinedIcon />
+                  </ListItemIcon>
                   <ListItemText primary={"Create"} />
                 </Link>
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    display: "flex",
-                    margin: "0 1rem",
-                  }}
-                  to={Routeconstant.DONATE}
-                  onClick={() => {
-                    setState(false);
-                  }}
-                >
-                  <ListItemIcon></ListItemIcon>
-                  <ListItemText primary={"Donate"} />
-                </Link>
-              </ListItemButton>
-            </ListItem>
+            {context.stripeApiKey ? (
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      display: "flex",
+                      margin: "0 1rem",
+                    }}
+                    to={Routeconstant.DONATE}
+                    onClick={() => {
+                      setState(false);
+                    }}
+                  >
+                    <ListItemIcon></ListItemIcon>
+                    <ListItemText primary={"Donate"} />
+                  </Link>
+                </ListItemButton>
+              </ListItem>
+            ) : null}
+
             {context.userData.role === "admin" ? (
               <ListItem disablePadding>
                 <ListItemButton>

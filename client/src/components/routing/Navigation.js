@@ -12,6 +12,7 @@ import Users from "../screens/users/Users.js";
 import Profile from "../screens/profile/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute.js";
+import FreeRoute from "./components/FreeRoute";
 import { Routeconstant } from "./Routeconstant";
 import CheckAdmin from "./components/CheckAdmin";
 import PostDetails from "../screens/postDetails/PostDetails";
@@ -22,15 +23,7 @@ import { loadStripe } from "@stripe/stripe-js/pure";
 loadStripe.setLoadParameters({ advancedFraudSignals: false });
 
 const Navigation = () => {
-  const [stripeApiKey, setStripeApiKey] = useState("");
-  const getStripeApiKey = async () => {
-    const { data } = await axios.get("/api/v1/stripeapikey");
-    setStripeApiKey(data.stripeApiKey);
-  };
-
-  useEffect(() => {
-    getStripeApiKey();
-  }, []);
+  const context = useContext(AuthContext);
 
   return (
     <>
@@ -44,12 +37,12 @@ const Navigation = () => {
               </ProtectedRoute>
             }
           />
-          {stripeApiKey ? (
+          {context.stripeApiKey ? (
             <Route
               path={Routeconstant.DONATE}
               element={
                 <ProtectedRoute>
-                  <Elements stripe={loadStripe(stripeApiKey)}>
+                  <Elements stripe={loadStripe(context.stripeApiKey)}>
                     <Payment />
                   </Elements>
                 </ProtectedRoute>
@@ -104,7 +97,14 @@ const Navigation = () => {
               </PublicRoute>
             }
           />
-          <Route path={Routeconstant.HOME} element={<Home />} />
+          <Route
+            path={Routeconstant.HOME}
+            element={
+              <FreeRoute>
+                <Home />
+              </FreeRoute>
+            }
+          />
         </Route>
       </Routes>
     </>
