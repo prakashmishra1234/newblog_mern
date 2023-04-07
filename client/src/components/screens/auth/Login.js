@@ -3,7 +3,6 @@ import { Box } from "@mui/system";
 import { Formik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import instance from "../../../api/Interceptor";
 import { LoginValidator } from "../../../helper/helper";
 import { AuthContext } from "../../../store/store";
 import { Routeconstant } from "../../routing/Routeconstant";

@@ -4,7 +4,6 @@ import axios from "axios";
 import { Formik } from "formik";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import instance from "../../../api/Interceptor";
 import { LOCAL_STORAGE_KEY } from "../../../Config";
 import { SignupValidator } from "../../../helper/helper";
 import { AuthContext } from "../../../store/store";

@@ -2,17 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getUserData } from "../actions/UserAction";
 
 const initialState = {
-  loading: false,
   data: {},
+  loading: false,
   isAuthenticated: false,
   error: null,
 };
 
-const userReducer = createSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   extraReducers: {
-    [getUserData.pending]: (state, { payload }) => {
+    [getUserData.pending]: (state) => {
       state.loading = true;
     },
     [getUserData.fulfilled]: (state, { payload }) => {
@@ -28,4 +28,4 @@ const userReducer = createSlice({
   },
 });
 
-export default userReducer.reducer;
+export default userSlice.reducer;

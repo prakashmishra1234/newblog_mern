@@ -11,7 +11,6 @@ import {
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import instance from "../../../api/Interceptor";
 import { LOCAL_STORAGE_KEY } from "../../../Config";
 import { DateFormat } from "../../../services/moment";
 import { AuthContext } from "../../../store/store";
@@ -110,9 +109,7 @@ const Profile = () => {
                             data.avatar && data.avatar.url
                               ? data.avatar.url
                               : `https://ui-avatars.com/api/?name=${
-                                  data.name
-                                    ? context?.userData?.name.split("")[0] ?? ""
-                                    : ""
+                                  data.name ? data.name.split("")[0] ?? "" : ""
                                 }`
                           }
                         />
@@ -130,9 +127,7 @@ const Profile = () => {
                         padding: "1rem",
                       }}
                     >
-                      <Typography>{`Name : ${
-                        context?.userData?.name ?? "NA"
-                      }`}</Typography>
+                      <Typography>{`Name : ${data.name ?? "NA"}`}</Typography>
                     </Grid>
                     <Grid
                       item
@@ -144,9 +139,7 @@ const Profile = () => {
                         padding: "1rem",
                       }}
                     >
-                      <Typography>{`Email : ${
-                        context?.userData?.email ?? "NA"
-                      }`}</Typography>
+                      <Typography>{`Email : ${data.email ?? "NA"}`}</Typography>
                     </Grid>
                     <Grid
                       item
@@ -159,7 +152,7 @@ const Profile = () => {
                       }}
                     >
                       <Typography>{`You are active since : ${DateFormat(
-                        context?.userData?.createdAt ?? null
+                        data.createdAt ?? null
                       )}`}</Typography>
                     </Grid>
                     <Grid
