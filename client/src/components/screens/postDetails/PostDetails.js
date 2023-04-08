@@ -23,58 +23,20 @@ const PostDetails = () => {
   return (
     <>
       <MetaData title="Post Details" />
-      <Paper
-        elevation={3}
-        sx={{
-          marginBottom: { xs: "1rem", md: "0" },
-          minHeight: { xs: "0", md: "38.6rem" },
-        }}
-      >
-        <Box style={{ padding: "4px", display: "flex" }}>
-          <Avatar
-            style={{ height: "4rem", width: "4rem" }}
-            alt="user"
-            src={data.postedBy?.avatar?.url ?? userData?.avatar?.url ?? ""}
+      <div className="card">
+        {data.images.url ? (
+          <img
+            className="card-img-top"
+            src={data.images.url}
+            alt="Card image cap"
           />
-          <div style={{ paddingLeft: "0.5rem", paddingTop: "0.3rem" }}>
-            <Typography sx={{ fontWeight: "700" }}>
-              {data?.postedBy?.name ?? userData?.name ?? ""}
-            </Typography>
-            <Typography>
-              Posted on : {DateFormat(data?.date ?? null)}
-            </Typography>
-          </div>
-        </Box>
-        <Card
-          sx={{
-            minHeight: {
-              xs: "0",
-              md: "34.3rem",
-              marginBottom: { xs: "1rem", md: "0" },
-            },
-          }}
-        >
-          {data.images.url ? (
-            <Carousel animation="slide">
-              <CardMedia
-                sx={{ height: "300px" }}
-                image={data.images.url}
-                title="Post Image"
-              />
-            </Carousel>
-          ) : null}
+        ) : null}
 
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {data?.title ?? "N/A"}
-            </Typography>
-
-            <Typography style={{ wordBreak: "break-word" }}>
-              {data?.text ?? "N/A"}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Paper>
+        <div className="card-body">
+          <h4 className="card-title">{data?.title ?? "N/A"}</h4>
+          <p className="card-text">{data?.text ?? "N/A"}</p>
+        </div>
+      </div>
     </>
   );
 };

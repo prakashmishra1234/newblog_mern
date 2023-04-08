@@ -1,53 +1,20 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  Paper,
-  Skeleton,
-  Typography,
-} from "@mui/material";
-import axios from "axios";
+import { Avatar, Box, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DateFormat } from "../../../services/moment";
 import PostCard from "../../common/PostCard";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPost } from "../../../store/redux/actions/PostAction";
 
 const Home = () => {
-  const [allPost, setAllPost] = useState([]);
-  const [totalPost, setTotalPost] = useState();
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [loadingMore, setLoadingMore] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    getAllPost(page);
+    dispatch(getAllPost(page));
   }, []);
 
-  const getAllPost = (pageNumber) => {
-    if (pageNumber === 1) {
-      setLoading(true);
-    } else {
-      setLoadingMore(true);
-    }
-    axios
-      .get(`/api/v1/posts?page=${pageNumber}`)
-      .then((res) => {
-        setTotalPost(res.data?.postCount);
-        if (pageNumber === 1) {
-          setAllPost(res.data.posts ?? []);
-        } else {
-          setAllPost([...allPost, ...res.data?.posts]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-        setLoadingMore(false);
-      });
-  };
+  const { posts, loading, postCount, error } = useSelector(
+    (state) => state.allPost
+  );
 
   return (
     <>
@@ -71,44 +38,41 @@ const Home = () => {
         </>
       ) : (
         <Grid container>
-          {allPost.map((i, index) => {
-            return (
-              <Grid
-                item
-                key={index}
-                xs={12}
-                md={6}
-                sx={{ padding: { sm: "0", md: "1rem" } }}
-              >
-                <Paper
-                  elevation={3}
+          <>
+            {posts.map((i, index) => {
+              return (
+                <Grid
+                  item
+                  key={index}
+                  xs={12}
+                  md={6}
                   sx={{
-                    marginBottom: { xs: "1rem", md: "0" },
+                    padding: { sm: "0", md: "1rem" },
                     minHeight: { xs: "0", md: "38.6rem" },
                   }}
                 >
-                  <Box style={{ padding: "4px", display: "flex" }}>
-                    <Avatar
-                      style={{ height: "4rem", width: "4rem" }}
-                      alt="user"
-                      src={i?.postedBy?.avatar?.url ?? ""}
-                    />
-                    <div
-                      style={{ paddingLeft: "0.5rem", paddingTop: "0.3rem" }}
-                    >
-                      <Typography sx={{ fontWeight: "700" }}>
-                        {i?.postedBy?.name ?? ""}
-                      </Typography>
-                      <Typography>
-                        Posted on : {DateFormat(i?.date ?? null)}
-                      </Typography>
-                    </div>
-                  </Box>
                   <PostCard data={i} />
-                </Paper>
+                </Grid>
+              );
+            })}
+          </>
+          {console.log(postCount, posts.length)}
+
+          {postCount === posts.length ? (
+            <>
+              <Grid item xs={12}>
+                <Typography
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  No more post found!
+                </Typography>
               </Grid>
-            );
-          })}
+            </>
+          ) : null}
         </Grid>
       )}
     </>
