@@ -16,6 +16,8 @@ import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import { useSelector } from "react-redux";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
+import AppRegistrationOutlinedIcon from "@mui/icons-material/AppRegistrationOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 
 export default function Sidebar({ state, setState }) {
   const context = React.useContext(AuthContext);
@@ -190,7 +192,9 @@ export default function Sidebar({ state, setState }) {
                         setState(false);
                       }}
                     >
-                      <ListItemIcon></ListItemIcon>
+                      <ListItemIcon>
+                        <LoginOutlinedIcon />
+                      </ListItemIcon>
                       <ListItemText primary={"Login"} />
                     </Link>
                   </ListItemButton>
@@ -208,7 +212,9 @@ export default function Sidebar({ state, setState }) {
                         setState(false);
                       }}
                     >
-                      <ListItemIcon></ListItemIcon>
+                      <ListItemIcon>
+                        <AppRegistrationOutlinedIcon />
+                      </ListItemIcon>
                       <ListItemText primary={"Sign up"} />
                     </Link>
                   </ListItemButton>
