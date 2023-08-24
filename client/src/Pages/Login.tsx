@@ -7,11 +7,27 @@ import { Formik } from "formik";
 import { LoginForm, LoginValidator } from "../utils/helper";
 import { AuthContext } from "../Store";
 import { LoginInputs } from "../Components/Styled/Components";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const context = React.useContext(AuthContext);
 
-  const onclickLogin = (value: LoginForm) => {};
+  const onclickLogin = (value: LoginForm) => {
+    const body = {
+      email: value.email,
+      password: value.password,
+    };
+    axios
+      .post("http://localhost:4000/api/v1/login", body)
+      .then((res) => {
+        console.log(res);
+        toast.success(res?.data?.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Formik

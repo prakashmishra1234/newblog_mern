@@ -8,7 +8,10 @@ exports.SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .required("Please provide a valid password")
-    .matches(/^[a-zA-Z0-9!@#$%^&*]{6,16}$/, "Weak Password"),
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "A password contains at least eight characters, including at least one number and includes both lower and uppercase letters and special characters"
+    ),
 });
 
 exports.validateRegister = (schema) => async (req, res, next) => {
