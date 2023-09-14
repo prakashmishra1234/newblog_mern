@@ -7,11 +7,21 @@ import { Formik } from "formik";
 import { LoginForm, LoginValidator } from "../utils/helper";
 import { AuthContext } from "../Store";
 import { LoginInputs } from "../Components/Styled/Components";
+import axios from "axios";
 
 const Login = () => {
   const context = React.useContext(AuthContext);
 
-  const onclickLogin = (value: LoginForm) => {};
+  const onclickLogin = (value: LoginForm) => {
+    axios
+      .post("api/v1/login", value)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Formik

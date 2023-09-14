@@ -151,6 +151,9 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 
 //Update Password
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
+  if (!req.body.oldPassword) {
+    return next(new ErrorHandler("Old password is required", 400));
+  }
   const user = await User.findById(req.user.id).select("+password");
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
   if (!isPasswordMatched) {
