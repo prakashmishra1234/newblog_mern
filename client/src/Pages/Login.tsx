@@ -8,6 +8,10 @@ import { LoginForm, LoginValidator } from "../utils/helper";
 import { AuthContext } from "../Store";
 import { LoginInputs } from "../Components/Styled/Components";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+import { toast } from "react-hot-toast";
+>>>>>>> 8e5a9ded0d227be2f951ae5b0d606e58ca3c9436
 
 const Login = () => {
   const context = React.useContext(AuthContext);
